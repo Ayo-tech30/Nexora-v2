@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Session files (WhatsApp auth)
+nexora_session/
+*.session.json
+
+# Environment variables
+.env
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build files
+dist/
+build/
+
+# Temporary files
+*.tmp
+temp/
