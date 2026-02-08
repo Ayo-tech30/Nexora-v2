@@ -1,0 +1,13 @@
+module.exports = async (context) => {
+  const { sock, from, msg, isGroup, isAdmin, isBotAdmin } = context;
+  
+  if (!isGroup) return await sock.sendMessage(from, { text: '❌ This command is only for groups!' }, { quoted: msg });
+  if (!isAdmin) return await sock.sendMessage(from, { text: '❌ Only admins can use this!' }, { quoted: msg });
+  if (!isBotAdmin) return await sock.sendMessage(from, { text: '❌ Bot must be admin!' }, { quoted: msg });
+  
+  const user = msg.message?.extendedTextMessage?.contextInfo?.mentionedJid?.[0];
+  if (!user) return await sock.sendMessage(from, { text: '❌ Tag a user!' }, { quoted: msg });
+  
+  await sock.groupParticipantsUpdate(from, [user], 'promote');
+  await sock.sendMessage(from, { text: `╭━━𖣔 𝙋𝙍𝙊𝙈𝙊𝙏𝙀 𖣔━━╮\n│ ✅ @${user.split('@')[0]} promoted!\n╰━━━━━━━━━━━━━━━━━━━╯`, mentions: [user] }, { quoted: msg });
+};
